@@ -6,6 +6,8 @@ import { SiteHeader } from "../../components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 import data from "./data.json"
+import { Suspense } from "react"
+import Loading from "./loading"
 
 export default function Page() {
   return (
@@ -18,9 +20,14 @@ export default function Page() {
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <SectionCards />
               <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
+                <Suspense fallback={<Loading />}>
+                  <ChartAreaInteractive />
+                </Suspense>
               </div>
-              <DataTable data={data} />
+              <Suspense fallback={<Loading />}>
+
+                <DataTable data={data} />
+              </Suspense>
             </div>
           </div>
         </div>
