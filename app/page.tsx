@@ -1,6 +1,6 @@
-import LoginPage from "./login/page";
+import DashboardPage from "./(root)/page";
 export default function Home() {
   return (
-    <LoginPage />
+    <DashboardPage />
   );
 }
