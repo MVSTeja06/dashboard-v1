@@ -55,7 +55,6 @@ export default function Page() {
       const response = await iniData.json();
 
       const convertedData = convertBinanceKlineData(response);
-      console.log(convertedData);
       setChartData(convertedData);
     })();
   }, []);

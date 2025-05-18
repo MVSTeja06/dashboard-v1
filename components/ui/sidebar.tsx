@@ -516,7 +516,6 @@ function SidebarMenuButton({
   const router = useRouter();
 
   const handleItemClick = () => {
-    console.log('handleItemClick>>', url)
     if (url) {
       router.push(url)
     }

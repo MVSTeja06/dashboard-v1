@@ -7,13 +7,15 @@ function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
 
   const systemTheme = useSystemTheme();
-  console.log({ systemTheme })
   useEffect(
     () => {
+      if(container.current?.querySelector("#tradingview-widget-iframe")) return;
+
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
       script.type = "text/javascript";
       script.async = true;
+      script.id = "tradingview-widget-iframe";
       script.innerHTML = `
          {
           "autosize": true,

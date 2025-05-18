@@ -43,7 +43,7 @@ export function SignUpForm({ setNeedsSignUp }: SignUpFormProps) {
           Login
         </a>
       </div>
-      <Button className="w-full">Create account</Button>
+      <Button type="submit" className="w-full">Create account</Button>
     </div>
   );
 }

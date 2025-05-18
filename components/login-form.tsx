@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { SignUpForm } from "./ui/sign-up-form";
+import { useRouter } from "next/navigation";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   setNeedsSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -97,11 +98,18 @@ export function LoginForm({
   needsSignUp,
   ...props
 }: LoginFormProps) {
+  const router = useRouter();
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              router.push("/dashboard");
+            }}
+            className="p-6 md:p-8"
+          >
             {needsSignUp ? (
               <SignUpForm setNeedsSignUp={setNeedsSignUp} />
             ) : (
