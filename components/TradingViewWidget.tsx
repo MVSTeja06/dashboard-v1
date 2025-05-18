@@ -49,7 +49,7 @@ function TradingViewWidget() {
         }`;
       container?.current?.appendChild?.(script);
     },
-    []
+    [systemTheme]
   );
 
   return (
