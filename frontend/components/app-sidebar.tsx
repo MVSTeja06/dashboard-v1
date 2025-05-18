@@ -58,6 +58,11 @@ const data = {
       icon: BadgeDollarSign,
     },
     {
+      title: "Custom Trading",
+      url: "/custom-trading",
+      icon: BadgeDollarSign,
+    },
+    {
       title: "Playground",
       url: "#",
       icon: SquareTerminal,
