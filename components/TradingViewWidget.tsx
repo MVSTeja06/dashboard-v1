@@ -1,10 +1,13 @@
 'use client'
+import useSystemTheme from '@/hooks/use-system-theme';
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from 'react';
 
 function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
 
+  const systemTheme = useSystemTheme();
+  console.log({ systemTheme })
   useEffect(
     () => {
       const script = document.createElement("script");
@@ -16,7 +19,7 @@ function TradingViewWidget() {
           "autosize": true,
           "symbol": "NASDAQ:AAPL",
           "timezone": "America/New_York",
-          "theme": "dark",
+          "theme": "${systemTheme}",
           "style": "1",
           "locale": "en",
           "withdateranges": true,
