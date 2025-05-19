@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+Inspirations taken from :-
+
+
+https://shadcnstudio.com/theme-editor
+
+https://github.com/Kiranism/next-shadcn-dashboard-starter
+
+https://docs.binance.us/
+
+Binance API Tutorial (Part 8) - Real-Time Candlestick Charts using Websockets and JavaScript
+
+https://www.youtube.com/watch?v=EeT3Ore4Sao&list=PLvzuUVysUFOuB1kJQ3S2G-nB7_nHhD7Ay&index=8

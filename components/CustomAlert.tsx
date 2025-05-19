@@ -9,9 +9,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-import { confirmable, createConfirmation } from "react-confirm";
+import { confirmable, ConfirmDialogProps, createConfirmation } from "react-confirm";
 
-function CustomAlert({ show, proceed, confirmMessage }) {
+export interface Props {
+  confirmMessage?: string;
+};
+function CustomAlert({ show, proceed, confirmMessage }: ConfirmDialogProps<Props, boolean>) {
   console.log("show", show, proceed, confirmMessage);
   return (
     <AlertDialog open={show}>
