@@ -28,6 +28,8 @@ import {
 import { useRouter } from "next/navigation";
 import { confirmAlert } from "./CustomAlert";
 import { ThemeToggle } from "./layout/ThemeToggle/theme-toggle";
+import { useTheme } from "next-themes";
+import { useThemeToggle } from "@/hooks/use-theme-toggle";
 
 export function NavUser({
   user,
@@ -39,6 +41,9 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const { resolvedTheme } = useTheme();
+
+  const { handleThemeToggle  } = useThemeToggle();
 
   const router = useRouter();
 
@@ -101,8 +106,11 @@ export function NavUser({
                 <Bell />
                 Notifications
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleThemeToggle} >
                 <ThemeToggle />
+                {`Switch to ${
+                    resolvedTheme === "light" ? "dark" : "light"
+                  } theme `}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

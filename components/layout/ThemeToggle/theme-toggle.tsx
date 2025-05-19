@@ -1,46 +1,23 @@
-'use client';
+"use client";
 
-import { IconBrightness } from '@tabler/icons-react';
-import { useTheme } from 'next-themes';
-import * as React from 'react';
+import { IconBrightness } from "@tabler/icons-react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { useThemeToggle } from "@/hooks/use-theme-toggle";
 
 export function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme();
 
-  const handleThemeToggle = React.useCallback(
-    (e?: React.MouseEvent) => {
-      const newMode = resolvedTheme === 'dark' ? 'light' : 'dark';
-      const root = document.documentElement;
-
-      if (!document.startViewTransition) {
-        setTheme(newMode);
-        return;
-      }
-
-      // Set coordinates from the click event
-      if (e) {
-        root.style.setProperty('--x', `${e.clientX}px`);
-        root.style.setProperty('--y', `${e.clientY}px`);
-      }
-
-      document.startViewTransition(() => {
-        setTheme(newMode);
-      });
-    },
-    [resolvedTheme, setTheme]
-  );
+  const {handleThemeToggle} = useThemeToggle();
 
   return (
     <Button
-      variant='outline'
-      size='icon'
-      className='group/toggle size-8'
       onClick={handleThemeToggle}
+      variant="ghost"
+      size="sm"
+      className="p-[0]! h-6" 
     >
       <IconBrightness />
-      <span className='sr-only'>Toggle theme</span>
+      <span className="sr-only">Toggle theme</span>
     </Button>
   );
 }
