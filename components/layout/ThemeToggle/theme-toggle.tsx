@@ -34,7 +34,7 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant='secondary'
+      variant='outline'
       size='icon'
       className='group/toggle size-8'
       onClick={handleThemeToggle}
