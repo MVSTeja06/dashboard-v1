@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
 import { confirmAlert } from "./CustomAlert";
+import { ThemeToggle } from "./layout/ThemeToggle/theme-toggle";
 
 export function NavUser({
   user,
@@ -99,6 +100,9 @@ export function NavUser({
               <DropdownMenuItem>
                 <Bell />
                 Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <ThemeToggle />
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

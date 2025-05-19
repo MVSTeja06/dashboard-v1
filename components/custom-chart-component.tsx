@@ -6,6 +6,7 @@ import {
   Time,
   UTCTimestamp,
 } from "lightweight-charts";
+import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 
 export interface IchartSeriesData {
@@ -39,6 +40,9 @@ const WS_URL = "wss://stream.binance.us:9443/ws/btcusdt@kline_1m";
 const CustomChartComponent = (props: IChartDataType) => {
   const { data = {} } = props;
 
+  const { _, resolvedTheme } =  useTheme();
+
+
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -54,7 +58,7 @@ const CustomChartComponent = (props: IChartDataType) => {
       height: 500,
       layout: {
         background: {
-          color: "#000000",
+          color: resolvedTheme ==='light' ? "#fff" : "#000",
         },
         textColor: "rgba(255, 255, 255, 0.9)",
       },
@@ -111,7 +115,7 @@ const CustomChartComponent = (props: IChartDataType) => {
       window.removeEventListener("resize", handleResize);
       chart.remove();
     };
-  }, [data]);
+  }, [data, resolvedTheme]);
 
   return (
     <div className="chart-container">

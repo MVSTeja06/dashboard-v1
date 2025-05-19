@@ -1,15 +1,19 @@
 'use client'
-import useSystemTheme from '@/hooks/use-system-theme';
+import { useTheme } from 'next-themes';
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from 'react';
 
 function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
 
-  const systemTheme = useSystemTheme();
+  const { _, resolvedTheme } = useTheme();
+  // const systemTheme = useSystemTheme();
+  console.log({ resolvedTheme })
   useEffect(
     () => {
-      if(container.current?.querySelector("#tradingview-widget-iframe")) return;
+      if(container.current?.querySelector("#tradingview-widget-iframe")) {
+        container.current?.querySelector("#tradingview-widget-iframe")?.remove();
+      };
 
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
@@ -21,7 +25,7 @@ function TradingViewWidget() {
           "autosize": true,
           "symbol": "NASDAQ:AAPL",
           "timezone": "America/New_York",
-          "theme": "${systemTheme}",
+          "theme": "${resolvedTheme}",
           "style": "1",
           "locale": "en",
           "withdateranges": true,
@@ -51,7 +55,7 @@ function TradingViewWidget() {
         }`;
       container?.current?.appendChild?.(script);
     },
-    [systemTheme]
+    [resolvedTheme]
   );
 
   return (

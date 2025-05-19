@@ -28,6 +28,7 @@
     "@radix-ui/react-toggle": "^1.1.8",
     "@radix-ui/react-toggle-group": "^1.1.9",
     "@radix-ui/react-tooltip": "^1.2.6",
+    "@tabler/icons-react": "^3.33.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
@@ -35,6 +36,7 @@
     "lightweight-charts": "^5.0.7",
     "lucide-react": "^0.510.0",
     "next": "15.2.4",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-confirm": "^0.3.0",
     "react-dom": "^19.0.0",
@@ -61,7 +63,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run lint",
+      "npm run lint && tsc",
       "prettier --write",
       "git add"
     ]
