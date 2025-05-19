@@ -40,7 +40,7 @@ const WS_URL = "wss://stream.binance.us:9443/ws/btcusdt@kline_1m";
 const CustomChartComponent = (props: IChartDataType) => {
   const { data = {} } = props;
 
-  const { _, resolvedTheme } =  useTheme();
+  const { resolvedTheme } =  useTheme();
 
 
   const chartContainerRef = useRef<HTMLDivElement | null>(null);

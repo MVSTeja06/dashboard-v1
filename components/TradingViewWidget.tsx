@@ -6,7 +6,7 @@ import React, { useEffect, useRef, memo } from 'react';
 function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
 
-  const { _, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   // const systemTheme = useSystemTheme();
   console.log({ resolvedTheme })
   useEffect(
