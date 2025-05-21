@@ -1,12 +1,6 @@
 "use client";
 import CustomChartComponent from "@/components/custom-alpaca-chart-component";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import StockSearchComponent from "@/components/stock-search-component";
 import { Time, UTCTimestamp } from "lightweight-charts";
 import { useEffect, useRef, useState } from "react";
 
@@ -19,7 +13,6 @@ export interface IAlpacaChartSeriesData {
   volume?: number;
 }
 
-const SYMBOLS = ["SPY", "AAPL", "MSFT", "TSLA"];
 const LIMIT = 1000;
 
 export interface AlpacaBar {
@@ -59,29 +52,39 @@ function getDateNDaysAgo(days: number) {
 }
 
 export default function Page() {
-  const [symbol, setSymbol] = useState(SYMBOLS[0]);
+  const [open, setOpen] = useState(false);
+
   const [chartData, setChartData] = useState<IAlpacaChartSeriesData[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
-  const prevSymbolRef = useRef<string>(symbol);
+  
+  const [query, setQuery] = useState({
+    symbol: "NVDA",
+    name: "",
+  });
+
+  const prevSymbolRef = useRef<string>(query.symbol);
 
   // Fetch historical bars for the selected symbol
   useEffect(() => {
     const fetchBars = async () => {
       const start = getDateNDaysAgo(5);
-      const url = `/api/alpaca-bars?symbol=${symbol}&limit=${LIMIT}&start=${start}`;
+      const url = `/api/alpaca-bars?symbol=${query.symbol}&limit=${LIMIT}&start=${start}`;
       const res = await fetch(url);
       const json = await res.json();
       const converted = convertAlpacaBarData(json.bars || []);
       setChartData(converted);
     };
-    fetchBars();
-  }, [symbol]);
+
+    if (!open) fetchBars();
+  }, [query.symbol, open]);
 
   // WebSocket for real-time bars
   useEffect(() => {
     if (wsRef.current) {
       wsRef.current.close();
     }
+    if (!open) return;
+
     if (typeof window === "undefined") return;
 
     const WS_URL = "wss://stream.data.alpaca.markets/v2/iex";
@@ -106,7 +109,7 @@ export default function Page() {
       const msg = JSON.parse(event.data);
       if (Array.isArray(msg)) {
         msg.forEach((item) => {
-          if (item.T === "b" && item.S === symbol) {
+          if (item.T === "b" && item.S === query.symbol) {
             setChartData((prev) => {
               const newBar = {
                 time: (new Date(item.t).getTime() / 1000) as UTCTimestamp,
@@ -126,7 +129,7 @@ export default function Page() {
         });
       } else if (msg.msg === "authenticated") {
         // Unsubscribe from previous symbol if needed
-        if (prevSymbolRef.current && prevSymbolRef.current !== symbol) {
+        if (prevSymbolRef.current && prevSymbolRef.current !== query.symbol) {
           ws.send(
             JSON.stringify({
               action: "unsubscribe",
@@ -138,10 +141,10 @@ export default function Page() {
         ws.send(
           JSON.stringify({
             action: "subscribe",
-            bars: [symbol],
+            bars: [query.symbol],
           })
         );
-        prevSymbolRef.current = symbol;
+        prevSymbolRef.current = query.symbol;
       }
     };
 
@@ -153,11 +156,11 @@ export default function Page() {
     return () => {
       ws.close();
     };
-  }, [symbol]);
+  }, [query.symbol, open]);
 
   return (
     <div>
-      <div className="flex gap-4 items-center m-4">
+      {/* <div className="flex gap-4 items-center m-4">
         <label htmlFor="symbol" className="font-bold">
           Symbol:
         </label>
@@ -173,9 +176,14 @@ export default function Page() {
             ))}
           </SelectContent>
         </Select>
-         
-      </div>
-      <CustomChartComponent data={chartData} symbol={symbol} />
+      </div> */}
+      <StockSearchComponent
+        query={query}
+        setQuery={setQuery}
+        open={open}
+        setOpen={setOpen}
+      />
+      <CustomChartComponent data={chartData} symbol={query.symbol} />
     </div>
   );
 }
