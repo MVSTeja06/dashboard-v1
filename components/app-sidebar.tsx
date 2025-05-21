@@ -58,8 +58,8 @@ const data = {
       icon: BadgeDollarSign,
     },
     {
-      title: "Custom Trading",
-      url: "/custom-trading",
+      title: "Stock Market Prices",
+      url: "/stock-market-prices",
       icon: BadgeDollarSign,
     },
     {

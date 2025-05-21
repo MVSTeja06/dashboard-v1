@@ -8,7 +8,7 @@ function TradingViewWidget() {
 
   const { resolvedTheme } = useTheme();
   // const systemTheme = useSystemTheme();
-  console.log({ resolvedTheme })
+  // console.log({ resolvedTheme })
   useEffect(
     () => {
       if(container.current?.querySelector("#tradingview-widget-iframe")) {

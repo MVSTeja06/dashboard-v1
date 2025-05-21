@@ -15,7 +15,7 @@ export interface Props {
   confirmMessage?: string;
 };
 function CustomAlert({ show, proceed, confirmMessage }: ConfirmDialogProps<Props, boolean>) {
-  console.log("show", show, proceed, confirmMessage);
+  // console.log("show", show, proceed, confirmMessage);
   return (
     <AlertDialog open={show}>
       <AlertDialogContent>
