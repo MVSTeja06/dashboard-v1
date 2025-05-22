@@ -48,3 +48,8 @@ https://docs.binance.us/
 Binance API Tutorial (Part 8) - Real-Time Candlestick Charts using Websockets and JavaScript
 
 https://www.youtube.com/watch?v=EeT3Ore4Sao&list=PLvzuUVysUFOuB1kJQ3S2G-nB7_nHhD7Ay&index=8
+
+
+Stock market data API -
+
+https://docs.alpaca.markets/reference/get-v2-assets-1

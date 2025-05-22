@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { SignUpForm } from "./ui/sign-up-form";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   setNeedsSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,7 +28,13 @@ const LoginFormContent = ({
       </div>
       <div className="grid gap-3">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" required />
+        <Input
+          name="email"
+          id="email"
+          type="text"
+          placeholder="m@example.com"
+          required
+        />
       </div>
       <div className="grid gap-3">
         <div className="flex items-center">
@@ -39,7 +46,7 @@ const LoginFormContent = ({
             Forgot your password?
           </a>
         </div>
-        <Input id="password" type="password" required />
+        <Input name="password" id="password" type="password" required />
       </div>
       <Button type="submit" className="w-full">
         Login
@@ -99,17 +106,34 @@ export function LoginForm({
   ...props
 }: LoginFormProps) {
   const router = useRouter();
+
+  const handleLogin = async (formData: FormData) => {
+    // const user = await handleLoginAuth(formData);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    if (!email || !password) {
+      // Handle error
+      console.error("Email and password are required");
+      return;
+    }
+    const user = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (user) {
+      console.log("Login successful:", user);
+      // Redirect to the dashboard or home page
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              router.push("/dashboard");
-            }}
-            className="p-6 md:p-8"
-          >
+          <form action={handleLogin} className="p-6 md:p-8">
             {needsSignUp ? (
               <SignUpForm setNeedsSignUp={setNeedsSignUp} />
             ) : (

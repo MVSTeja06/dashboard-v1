@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 
+const ALPACA_KEY = process.env.ALPACA_KEY!;
+const ALPACA_SECRET = process.env.ALPACA_SECRET!;
+
 export async function GET() {
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      "APCA-API-KEY-ID": "PK2ONCRL0XS41R2OV80P",
-      "APCA-API-SECRET-KEY": "vGAtMI2LziHSypAZF2iSUcKhqmRTgLPtdKdaD5Mq",
+      "APCA-API-KEY-ID": ALPACA_KEY,
+      "APCA-API-SECRET-KEY": ALPACA_SECRET,
     },
   };
 
