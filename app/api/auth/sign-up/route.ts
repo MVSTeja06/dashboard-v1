@@ -9,27 +9,32 @@ export async function POST(req: NextRequest) {
   const payload = {
     username: body.username,
     password: body.password,
+    email: body.email,
+    firstName: "John",
+    lastName: "Doe",
+    roles: ["team_member"],
+    teamId: 1,
   };
-
-  // Forward credentials to USER API
-  const apiRes = await fetch(`${USER_API}/auth/signin`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
   let data;
+
+  console.log("Payload", payload, `${USER_API}/auth/signup`);
+
   try {
+    // Forward credentials to USER API
+    const apiRes = await fetch(`${USER_API}/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
     data = await apiRes.json();
+    if (!apiRes.ok) {
+      return NextResponse.json(
+        { error: "Authentication failed", details: data },
+        { status: apiRes.status }
+      );
+    }
   } catch (err) {
     return NextResponse.json({ error: err }, { status: 502 });
-  }
-
-  if (!apiRes.ok) {
-    return NextResponse.json(
-      { error: "Authentication failed", details: data },
-      { status: apiRes.status }
-    );
   }
 
   const jwt = data.token || data.jwt || data.accessToken;

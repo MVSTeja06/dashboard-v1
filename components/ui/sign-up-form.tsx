@@ -26,12 +26,20 @@ export function SignUpForm({ setNeedsSignUp }: SignUpFormProps) {
         </p>
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" />
+        <Label htmlFor="username">User Name</Label>
+        <Input name="username" id="username" type="text" autoFocus/>
       </div>
       <div className="grid gap-2">
         <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" />
+        <Input name="password" id="password" type="password" />
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="confirmPassword">Confirm Password</Label>
+        <Input name="confirmPassword" id="confirmPassword" type="password" />
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="email">Email</Label>
+        <Input name="email" id="email" type="email" />
       </div>
       <div className="text-center text-sm">
         Have an account already?{" "}

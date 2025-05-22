@@ -27,10 +27,10 @@ const LoginFormContent = ({
         </p>
       </div>
       <div className="grid gap-3">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="username">User Name</Label>
         <Input
           name="email"
-          id="email"
+          id="username"
           type="text"
           placeholder="m@example.com"
           required
@@ -107,8 +107,9 @@ export function LoginForm({
 }: LoginFormProps) {
   const router = useRouter();
 
-  const handleLogin = async (formData: FormData) => {
-    // const user = await handleLoginAuth(formData);
+  const handleLogin = async (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     if (!email || !password) {
@@ -129,11 +130,72 @@ export function LoginForm({
     }
   };
 
+  const handleSignup = async (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.currentTarget);
+    // const user = await handleLoginAuth(formData);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+    const username = formData.get("username") as string;
+
+    if (!email || !password || !confirmPassword || !username) {
+      // Handle error
+      console.error(
+        "Email, password, confirmPassword and User name are required"
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      // Handle error
+      console.error("Passwords do not match");
+      return;
+    }
+    if (password.length < 6) {
+      // Handle error
+      console.error("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      const user = await fetch("/api/auth/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
+      const data = await user.json();
+      if (!user.ok) {
+        // Handle error
+        console.error("Error signing up:", data.error);
+        return;
+      }
+
+      if (user) {
+        console.log("Login successful:", user);
+        // Redirect to the dashboard or home page
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Handle error
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form action={handleLogin} className="p-6 md:p-8">
+          <form
+            onSubmit={needsSignUp ? handleSignup : handleLogin}
+            className="p-6 md:p-8"
+          >
             {needsSignUp ? (
               <SignUpForm setNeedsSignUp={setNeedsSignUp} />
             ) : (
