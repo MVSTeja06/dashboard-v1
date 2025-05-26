@@ -1,5 +1,4 @@
 "use client";
-
 import { useSession } from "next-auth/react";
 import { AppSidebar } from "../../components/app-sidebar";
 import { SiteHeader } from "../../components/site-header";

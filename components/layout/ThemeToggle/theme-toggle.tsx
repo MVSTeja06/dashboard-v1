@@ -1,5 +1,3 @@
-"use client";
-
 import { IconBrightness } from "@tabler/icons-react";
 
 import { Button } from "@/components/ui/button";

@@ -1,5 +1,4 @@
 "use client";
-
 import { LoginForm } from "@/components/login-form";
 import { Suspense, useEffect, useState } from "react";
 import Loading from "./loading";

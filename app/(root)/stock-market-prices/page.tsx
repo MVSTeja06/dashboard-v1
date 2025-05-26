@@ -1,4 +1,3 @@
-"use client";
 import CustomChartComponent from "@/components/custom-alpaca-chart-component";
 import StockSearchComponent from "@/components/stock-search-component";
 import { Time, UTCTimestamp } from "lightweight-charts";

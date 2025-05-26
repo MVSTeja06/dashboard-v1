@@ -1,4 +1,3 @@
-"use client";
 import CustomChartComponent from "@/components/custom-alpaca-chart-component";
 import { Time } from "lightweight-charts";
 import { useEffect, useState } from "react";

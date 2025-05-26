@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import {

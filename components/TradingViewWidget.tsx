@@ -1,6 +1,5 @@
-'use client'
+"use client";
 import { useTheme } from 'next-themes';
-// TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from 'react';
 
 function TradingViewWidget() {
